@@ -44,6 +44,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Aiming"",
+                    ""type"": ""Value"",
+                    ""id"": ""b7fa7f04-3afb-4e67-9c38-e1fa6257bfb1"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -123,6 +132,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3243968c-080e-48f2-9e36-a31e16874e76"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard and mouse"",
+                    ""action"": ""Aiming"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -150,6 +170,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Primaryfire = m_Player.FindAction("Primary fire", throwIfNotFound: true);
+        m_Player_Aiming = m_Player.FindAction("Aiming", throwIfNotFound: true);
     }
 
     ~@PlayerControls()
@@ -218,12 +239,14 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Primaryfire;
+    private readonly InputAction m_Player_Aiming;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
         public PlayerActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputAction @Primaryfire => m_Wrapper.m_Player_Primaryfire;
+        public InputAction @Aiming => m_Wrapper.m_Player_Aiming;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -239,6 +262,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Primaryfire.started += instance.OnPrimaryfire;
             @Primaryfire.performed += instance.OnPrimaryfire;
             @Primaryfire.canceled += instance.OnPrimaryfire;
+            @Aiming.started += instance.OnAiming;
+            @Aiming.performed += instance.OnAiming;
+            @Aiming.canceled += instance.OnAiming;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -249,6 +275,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Primaryfire.started -= instance.OnPrimaryfire;
             @Primaryfire.performed -= instance.OnPrimaryfire;
             @Primaryfire.canceled -= instance.OnPrimaryfire;
+            @Aiming.started -= instance.OnAiming;
+            @Aiming.performed -= instance.OnAiming;
+            @Aiming.canceled -= instance.OnAiming;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -279,5 +308,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     {
         void OnMove(InputAction.CallbackContext context);
         void OnPrimaryfire(InputAction.CallbackContext context);
+        void OnAiming(InputAction.CallbackContext context);
     }
 }

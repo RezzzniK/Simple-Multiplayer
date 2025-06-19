@@ -1,3 +1,4 @@
+using System;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -9,20 +10,30 @@ public class PlayerMovement : NetworkBehaviour
     [SerializeField] Rigidbody2D rigidbody2D;
     [SerializeField] float moveSpeed = 4f;
     [SerializeField] float rotationSpeed = 8f;
-
     Vector2 perviousMovementInput;
+   
     public override void OnNetworkSpawn()
     {
         if (!IsOwner) return;
         inputReaderSO.MovingEvent += HandleMove;
+       
     }
+
+    
+
     void Update()
     {
         if (!IsOwner) return;
-        tracks.Rotate(0f, 0f, perviousMovementInput.x * (-rotationSpeed) * Time.deltaTime);//by pressing a/d we are getting +- turning vector
-      
-        body.Rotate(0f, 0f, perviousMovementInput.x *  (-rotationSpeed) * Time.deltaTime);
+        TracksAndBodyMovement();
     }
+
+    private void TracksAndBodyMovement()
+    {
+        tracks.Rotate(0f, 0f, perviousMovementInput.x * (-rotationSpeed) * Time.deltaTime);//by pressing a/d we are getting +- turning vector
+
+        body.Rotate(0f, 0f, perviousMovementInput.x * (-rotationSpeed) * Time.deltaTime);
+    }
+
     void FixedUpdate()
     {
         if (!IsOwner) return;

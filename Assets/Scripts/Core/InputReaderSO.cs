@@ -8,6 +8,8 @@ public class InputReaderSO : ScriptableObject, IPlayerActions
 {
     public event Action<bool> PrimaryFireEvent;//event with datatype to pass Bool
     public event Action<Vector2> MovingEvent;//event with datatype to pass Vector2
+    //public event Action<Vector2> AimingEvent;//better not to use event because it will continuesly trigger event with every mouse move
+    public Vector2 aimPosition{ get; private set; }//we can get this variable anywhee, but set it only here
     private PlayerControls controls;//variable for Controls instance
     private void OnEnable()
     {
@@ -23,9 +25,9 @@ public class InputReaderSO : ScriptableObject, IPlayerActions
     }
     public void OnMove(InputAction.CallbackContext context)
     {
-        
-            MovingEvent?.Invoke(context.ReadValue<Vector2>());
-        
+
+        MovingEvent?.Invoke(context.ReadValue<Vector2>());
+
     }
 
     public void OnPrimaryfire(InputAction.CallbackContext context)
@@ -41,5 +43,12 @@ public class InputReaderSO : ScriptableObject, IPlayerActions
             PrimaryFireEvent?/*will defend us from null ref, 
                                in case if there's no listener*/.Invoke(false);
         }
+    }
+
+    public void OnAiming(InputAction.CallbackContext context)
+    {
+        //Debug.Log("AimingEvent" + context.ReadValue<Vector2>());
+        // AimingEvent?.Invoke(context.ReadValue<Vector2>());
+       aimPosition=context.ReadValue<Vector2>();  
     }
 }

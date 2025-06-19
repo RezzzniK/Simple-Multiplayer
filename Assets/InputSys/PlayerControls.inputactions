@@ -22,6 +22,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Aiming",
+                    "type": "Value",
+                    "id": "b7fa7f04-3afb-4e67-9c38-e1fa6257bfb1",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -101,6 +110,17 @@
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "3243968c-080e-48f2-9e36-a31e16874e76",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard and mouse",
+                    "action": "Aiming",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }
