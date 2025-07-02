@@ -42,7 +42,7 @@ public class PlayerMovement : NetworkBehaviour
     }
     void HandleMove(Vector2 vector)
     {
-        Debug.Log("" + vector);
+       // Debug.Log("" + vector);
         perviousMovementInput=vector;
     }
 
