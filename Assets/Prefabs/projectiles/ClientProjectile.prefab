@@ -147,6 +147,10 @@ PrefabInstance:
       propertyPath: m_Offset.y
       value: -0.0034089684
       objectReference: {fileID: 0}
+    - target: {fileID: 6198882197982002899, guid: 1e0d3b970fb3e4e42bf5a91f8e6bc042, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7224799063037751206, guid: 1e0d3b970fb3e4e42bf5a91f8e6bc042, type: 3}
       propertyPath: m_Name
       value: ClientProjectile
